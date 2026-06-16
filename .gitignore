@@ -217,11 +217,18 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
-# data
-data/raw/
-data/transformed/
-data/mart/
-data/mart_cleaned/
-data/reports/
+# data files
+data/raw/*
+data/transformed/*
+data/mart/*
+data/mart_cleaned/*
+data/reports/*
+
+# keep folder structure
+!data/raw/.gitkeep
+!data/transformed/.gitkeep
+!data/mart/.gitkeep
+!data/mart_cleaned/.gitkeep
+!data/reports/.gitkeep
 
 .DS_Store

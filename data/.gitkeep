@@ -1,0 +1,5 @@
+touch data/raw/.gitkeep
+touch data/transformed/.gitkeep
+touch data/mart/.gitkeep
+touch data/mart_cleaned/.gitkeep
+touch data/reports/.gitkeep

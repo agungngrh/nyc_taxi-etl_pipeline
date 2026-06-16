@@ -1,7 +1,10 @@
-import os
 import pandas as pd
 from config.config import Config
 from config.logger import get_logger
+from utils.helpers import (
+    read_parquet_file,
+    save_to_csv,
+)
 
 logger = get_logger(__name__)
 
@@ -30,12 +33,7 @@ class DataValidator:
         """
         Membaca data hasil transformasi dari file parquet.
         """
-        if not os.path.exists(self.config.TRANSFORMED_FILE):
-            raise FileNotFoundError(
-                f'File data hasil transformasi tidak ditemukan: {self.config.TRANSFORMED_FILE}'
-            )
-
-        return pd.read_parquet(self.config.TRANSFORMED_FILE)
+        return read_parquet_file(self.config.TRANSFORMED_FILE)
 
     def _build_invalid_dataframe(self, df: pd.DataFrame, duration_mask: pd.Series, distance_mask: pd.Series, invalid_mask: pd.Series) -> pd.DataFrame:
         """
@@ -69,12 +67,10 @@ class DataValidator:
         """
         Menyimpan data valid dan invalid ke folder mart_cleaned.
         """
-        os.makedirs(os.path.dirname(self.config.VALID_FILE),exist_ok=True,)
-
-        valid_df.to_csv(self.config.VALID_FILE,index=False,)
+        save_to_csv(self.config.VALID_FILE, valid_df)
         logger.info(f'Data valid disimpan di: {self.config.VALID_FILE}')
 
-        invalid_df.to_csv(self.config.INVALID_FILE, index=False)
+        save_to_csv(self.config.INVALID_FILE, invalid_df)
         logger.info(f'Data invalid disimpan di: {self.config.INVALID_FILE}')
 
     def validate(self) -> None:

@@ -3,7 +3,7 @@ import requests
 from requests.exceptions import HTTPError, RequestException
 from config.config import Config
 from config.logger import get_logger
-from utils.helpers import ensure_directory_exists
+from utils.helpers import ensure_parent_directory
 
 logger = get_logger(__name__)
 
@@ -24,7 +24,7 @@ class Extractor:
             )
             return
         
-        ensure_directory_exists(file_path)
+        ensure_parent_directory(file_path)
 
         logger.info(f'Mulai mendowload data url: {url}')
 

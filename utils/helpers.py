@@ -9,14 +9,20 @@ def ensure_file_exists(file_path: str) -> None:
         raise FileNotFoundError(
             f'File tidak ditemukan: {file_path}'
         )
-    
-def ensure_directory_exists(file_path: str) -> None:
+
+def create_directory(directory: str) -> None:
+    """
+    Membuat directory jika belum tersedia.
+    """
+    os.makedirs(directory, exist_ok=True)
+
+def ensure_parent_directory(file_path: str) -> None:
     """
     membuat folder directory jika belum tersedia
     """
     directory = os.path.dirname(file_path)
     if directory:
-        os.makedirs(directory, exist_ok=True)
+        create_directory(directory)
 
 def read_parquet_file(file_path: str) -> pd.DataFrame:
     """
@@ -25,17 +31,24 @@ def read_parquet_file(file_path: str) -> pd.DataFrame:
     ensure_file_exists(file_path)
     return pd.read_parquet(file_path)
 
+def read_csv_file(file_path: str, low_memory: bool= False) -> pd.DataFrame:
+    """
+    Membaca file format csv
+    """
+    ensure_file_exists(file_path)
+    return pd.read_csv(file_path, low_memory=low_memory)
+
 def save_to_csv(file_path: str, df: pd.DataFrame) -> None:
     """
     menyimpan dataframe ke dalam format csv
     """
-    ensure_directory_exists(file_path)
+    ensure_parent_directory(file_path)
     df.to_csv(file_path, index=False)
 
 def save_to_parquet(file_path: str, df: pd.DataFrame) -> None:
     """
     menyimpan data kedalam format parquet
     """
-    ensure_directory_exists(file_path)
+    ensure_parent_directory(file_path)
     df.to_parquet(file_path, index=False)
     

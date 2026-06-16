@@ -69,26 +69,13 @@ class DataValidator:
         """
         Menyimpan data valid dan invalid ke folder mart_cleaned.
         """
-        os.makedirs(
-            os.path.dirname(self.config.VALID_FILE),
-            exist_ok=True,
-        )
+        os.makedirs(os.path.dirname(self.config.VALID_FILE),exist_ok=True,)
 
-        valid_df.to_csv(
-            self.config.VALID_FILE,
-            index=False,
-        )
-        logger.info(
-            f'Data valid disimpan di: {self.config.VALID_FILE}'
-        )
+        valid_df.to_csv(self.config.VALID_FILE,index=False,)
+        logger.info(f'Data valid disimpan di: {self.config.VALID_FILE}')
 
-        invalid_df.to_csv(
-            self.config.INVALID_FILE,
-            index=False,
-        )
-        logger.info(
-            f'Data invalid disimpan di: {self.config.INVALID_FILE}'
-        )
+        invalid_df.to_csv(self.config.INVALID_FILE, index=False)
+        logger.info(f'Data invalid disimpan di: {self.config.INVALID_FILE}')
 
     def validate(self) -> None:
         """
@@ -133,7 +120,5 @@ class DataValidator:
             logger.info('Proses validasi data selesai')
 
         except Exception as err:
-            logger.error(
-                f'Terjadi error saat proses validasi data: {err}'
-            )
+            logger.error(f'Terjadi error saat proses validasi data: {err}')
             raise

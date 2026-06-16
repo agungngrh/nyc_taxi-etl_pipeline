@@ -14,7 +14,6 @@ class Extractor:
     def __init__(self, config: Config) -> None:
         self.config = config
 
-    
     def _download_file(self, url: str, file_path: str, timeout: int=10, chunk_size: int=1024 * 1024 * 8) -> None:
         """
         Download file data URL dan menyimpanya ke local storage
@@ -50,7 +49,6 @@ class Extractor:
             logger.error(f'Terjadi error lainnya: {str(err)}')
             raise
         
-
     def extract(self) -> None:
         """
         Menjalankan proses ekstraksi data

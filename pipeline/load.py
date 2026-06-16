@@ -16,7 +16,6 @@ class Loader:
     def __init__(self, config: Config) -> None:
         self.config = config
         
-
     def load_to_data_mart(self) -> None:
         """
         Membaca data hasil transformasi kemudian

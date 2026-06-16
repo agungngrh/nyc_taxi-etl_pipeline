@@ -59,7 +59,7 @@ class DataQualityReport:
             for error, count in invalid_df['error_type'].value_counts().items():
                 f.write(f'{error}: {count}\n')
 
-    def generate(self) -> str:
+    def generate_report(self) -> str:
         """
         Menghasilkan report kualitas data dalam format txt.
         """

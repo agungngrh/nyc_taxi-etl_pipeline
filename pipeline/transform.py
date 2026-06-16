@@ -35,7 +35,6 @@ class Transformer:
     def __init__(self, config: Config) -> None:
         self.config = config
 
-
     def _column_to_snake_case(self, name: str) -> str:
         """
         helper function untuk mengubah nama kolom menjadi format snake_case
@@ -44,7 +43,6 @@ class Transformer:
         column = re.sub(r'([a-z\d])([A-Z])', r'\1_\2', column)
         return column.lower()
     
-    
     def _rename_column(self, df: pd.DataFrame) -> pd.DataFrame:
         """
         mengubah nama kolom menjadi format snake_case
@@ -52,14 +50,12 @@ class Transformer:
         df.columns = [self._column_to_snake_case(col) for col in df.columns]
         return df
     
-
     def _add_trip_duration(self, df: pd.DataFrame) -> pd.DataFrame:
         df['trip_duration_minutes'] = (
             df['tpep_dropoff_datetime'] - df['tpep_pickup_datetime']
         ).dt.total_seconds() / 60
         return df
     
-
     def _add_time_features(self, df: pd.DataFrame) -> pd.DataFrame:
         df['pickup_date'] = df['tpep_pickup_datetime'].dt.date
         df['pickup_hour'] = df['tpep_pickup_datetime'].dt.hour
@@ -67,7 +63,6 @@ class Transformer:
         df['is_weekend'] = df['tpep_pickup_datetime'].dt.day_of_week.isin([5, 6])
         return df
     
-
     def _add_time_period(self, df: pd.DataFrame) -> pd.DataFrame:
         df['time_period'] = pd.cut(
             df['pickup_hour'],
@@ -78,13 +73,11 @@ class Transformer:
         )
         return df
     
-
     def _mapping_categorical(self, df: pd.DataFrame) -> pd.DataFrame:
         df['payment_type'] = df['payment_type'].map(PAYMENT_MAPPING)
         df['store_and_fwd_flag'] = df['store_and_fwd_flag'].map(FLAG_MAP)
         return df
     
-
     def _feature_engineering(self, df: pd.DataFrame) -> pd.DataFrame:
         """
         membuat fitur/kolom baru untuk menambah variasi data dan kebutuhan analisis
@@ -95,7 +88,6 @@ class Transformer:
         df = self._mapping_categorical(df)
         return df
     
-
     def _join_location(self, df: pd.DataFrame, zone_df: pd.DataFrame, location_col: str, prefix: str) -> pd.DataFrame:
         """
         """
@@ -114,7 +106,6 @@ class Transformer:
         )
         return mapped_df.drop(columns='locationid')
     
-    
     def _mapping_location(self, df: pd.DataFrame, zone_df: pd.DataFrame) -> pd.DataFrame:
         """
         """
@@ -125,7 +116,6 @@ class Transformer:
         df = self._join_location(df, zone_df, 'do_location_id', 'dropoff')
         return df
     
-
     def transform(self) -> None:
         """
         menjalankan proses seluruh transofrmasi data

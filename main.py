@@ -31,7 +31,7 @@ def main() -> None:
         transformer.transform()
         loader.load_to_data_mart()
         validator.validate()
-        report_data.generate()
+        report_data.generate_report()
 
         logger.info('Pipeline selesai')
 

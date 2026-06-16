@@ -13,11 +13,11 @@ flowchart LR
     A[NYC TLC Trip Records]
     B[Extract]
     C[(Raw Layer)]
-    D[Transform & Cleaning]
-    E[(Cleaned Layer)]
-    F[Data Validation]
-    G[Load]
-    H[(Mart Layer)]
+    D[Transform]
+    E[(Transformed Layer)]
+    F[Load to Data Mart]
+    G[(Data Mart)]
+    H[Data Validation]
     I[Data Quality Report]
 
     A --> B
@@ -27,8 +27,7 @@ flowchart LR
     E --> F
     F --> G
     G --> H
-
-    F --> I
+    H --> I
 ```
 
 ## **3. Technology Stack**

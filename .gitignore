@@ -223,3 +223,5 @@ data/transformed/
 data/mart/
 data/mart_cleaned/
 data/reports/
+
+.DS_Store

@@ -30,17 +30,25 @@ elif [ -d "env" ]; then
     source env/bin/activate
 fi
 
+START_TIME=$(date +%s)
+
+log_message "Pipeline dimulai"
+
 # Jalankan ETL Pipeline
 python3 main.py
 
 # Simpan exit code
 EXIT_CODE=$?
 
-# Evaluasi hasil eksekusi
+END_TIME=$(date +%s)
+DURATION=$((END_TIME - START_TIME))
+
 if [ "$EXIT_CODE" -eq 0 ]; then
     log_message "Pipeline berhasil dijalankan"
+    log_message "Durasi eksekusi: ${DURATION} detik"
 else
-    log_message "Pipeline berhenti $EXIT_CODE"
+    log_message "Pipeline berhenti dengan exit code $EXIT_CODE"
+    log_message "Durasi eksekusi: ${DURATION} detik"
     exit "$EXIT_CODE"
 fi
 

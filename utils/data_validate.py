@@ -106,17 +106,6 @@ class DataValidator:
                 invalid_df=invalid_df,
             )
 
-            logger.info(
-                f'Total: {len(df)} baris | '
-                f'Valid: {len(valid_df)} baris | '
-                f'Invalid: {len(invalid_df)} baris'
-            )
-
-            logger.info(
-                f'Duration invalid: {duration_mask.sum()} baris | '
-                f'Distance invalid: {distance_mask.sum()} baris'
-            )
-
             logger.info('Proses validasi data selesai')
 
         except Exception as err:

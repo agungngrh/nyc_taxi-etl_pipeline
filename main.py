@@ -17,8 +17,6 @@ def main() -> None:
     Entry point program untuk menjalankan pipeline ETL.
     """
     try:
-        logger.info('Mulai menjalankan Pipeline')
-
         config = Config()
 
         extractor = Extractor(config)

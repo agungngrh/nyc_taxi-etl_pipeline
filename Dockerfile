@@ -12,7 +12,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # permission execute ke shell script
-RUN chmod +x scripts/run_pipeline.sh
+RUN chmod +x scripts/entry_point.sh
 
 # entry point program
-CMD ["./scripts/run_pipeline.sh"]
+CMD ["./scripts/entry_point.sh"]

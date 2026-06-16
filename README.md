@@ -1,4 +1,4 @@
-# **NewYorkTaxi Data Pipeline Data Engineering Project**
+# **NewYorkTaxi Data Pipeline Project**
 ## **Screenshots**
 **Docker Compose Container**
     ![Docker Compose Up](./images/docker-compose-up.png)

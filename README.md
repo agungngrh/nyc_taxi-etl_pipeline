@@ -1,10 +1,10 @@
 # **NewYorkTaxi Data Pipeline Data Engineering Project**
-## **1. Screenshots**
+## **Screenshots**
 1. **Docker Compose Container**
     ![Docker Compose Up](./images/docker-compose-up.png)
     This shows Docker running in our containers for the NYC Taxi pipeline.
 
-## **2. Overview**
+## **Overview**
 
 The **NYC Taxi Pipeline Engineering Project** is a simple data engineering solution designed to extract, transform, and load NYC taxi trip data for analytical purposes. The project demonstrates a complete ETL workflow, including data ingestion, processing, validation, and storage.
 
@@ -30,7 +30,7 @@ flowchart LR
     H --> I
 ```
 
-## **3. Technology Stack**
+## **Technology Stack**
 - **Python 3.13+**
 - **Docker**
 
@@ -50,7 +50,7 @@ flowchart TD
     Git --> GitHub[GitHub]
 ```
 
-## **4. Project Structure**
+## **Project Structure**
 ```plaintext
 nyc_taxi-etl_pipeline/
 ├── config/
@@ -72,7 +72,7 @@ nyc_taxi-etl_pipeline/
 └── README.md
 ```
 
-## **5. Installation & Usage**
+## **Installation & Usage**
 ## Installation
 
 Clone the repository:
@@ -117,7 +117,7 @@ Run in detached mode:
 docker compose up -d --build
 ```
 
-## 6. Output
+## Output
 
 After the pipeline is executed successfully, the following outputs are generated:
 
@@ -134,7 +134,7 @@ data/
     └── data_quality_report.txt
 ```
 
-## 7. Data Quality Validation
+## Data Quality Validation
 
 The pipeline performs several validation checks:
 
@@ -146,7 +146,7 @@ The pipeline performs several validation checks:
 
 A detailed quality report is generated automatically after each pipeline execution.
 
-## 8. Future Improvements
+## Future Improvements
 
 - Add unit testing
 - Integrate PostgreSQL as a data warehouse

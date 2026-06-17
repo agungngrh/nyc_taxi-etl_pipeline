@@ -89,7 +89,7 @@ The pipeline runs in the following order:
 - Split dataset into valid and invalid records  
 - Store valid/invalid records → `mart_cleaned/`  
 
-**6. Report Generation**
+**5. Report Generation**
 - Generates data quality summary including total rows, columns, valid and invalid records  
 - Calculates valid vs invalid record percentage distribution  
 - Provides duplicate records summary  

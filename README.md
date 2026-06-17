@@ -1,16 +1,14 @@
 # NYC Taxi Data Pipeline Project
 
----
 
 ## Screenshots
 
-### Docker Compose Container
+**Docker Compose Container**
 
 ![Docker Compose Up](./images/docker-compose-up.png)
 
 This shows Docker running the NYC Taxi ETL pipeline containers.
 
----
 
 ## Architecture Overview
 
@@ -74,28 +72,30 @@ The pipeline runs in the following order:
 - Store into data/raw/
 
 **2. Transform**
-- Standardize schema
-- Feature formatting
-- Feature engineering
-- Store into data/transformed/
+- Standardize column names into snake_case format  
+- Convert pickup and dropoff datetime into proper datetime type  
+- Create time-based features (trip duration, pickup hour, day, weekend flag)  
+- Create time period segmentation (Late Night, Morning, Afternoon, etc.)  
+- Map categorical values (payment type, store and forward flag) into readable labels  
+- Enrich dataset with location data (pickup and dropoff borough & zone) using zone lookup table  
+- Store transformed dataset into `data/transformed/`
 
 **3. Load**
 - Load transformed data into data/mart/
 
 **4. Data Quality Check**
-- Missing values detection
-- Duplicate detection
-- Data type validation
-- Business rule validation
-
-**5. Validation Output**
-- Valid records → mart_cleaned/
-- Invalid records → separated for inspection
+- Business rule validation for trip duration and trip distance  
+- Identify invalid records and categorize error types  
+- Split dataset into valid and invalid records  
+- Store valid/invalid records → `mart_cleaned/`  
 
 **6. Report Generation**
-- Summary statistics
-- Data quality metrics
-- Validation results
+- Generates data quality summary including total rows, columns, valid and invalid records  
+- Calculates valid vs invalid record percentage distribution  
+- Provides duplicate records summary  
+- Generates missing values analysis per column  
+- Summarizes invalid records based on error types
+- Outputs a structured text-based data quality report stored in `data/reports/`  
 
 ## **Installation & Setup**
 

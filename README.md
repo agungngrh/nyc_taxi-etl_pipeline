@@ -1,79 +1,103 @@
-# **NewYorkTaxi Data Pipeline Project**
-## **Screenshots**
-**Docker Compose Container**
-    ![Docker Compose Up](./images/docker-compose-up.png)
-    This shows Docker running in our containers for the NYC Taxi pipeline.
+# NYC Taxi Data Pipeline Project
 
-## **Overview**
+---
 
-The **NYC Taxi Pipeline Engineering Project** is a simple data engineering solution designed to extract, transform, and load NYC taxi trip data for analytical purposes. The project demonstrates a complete ETL workflow, including data ingestion, processing, validation, and storage.
+## Screenshots
 
-```mermaid
-flowchart LR
-    A[NYC TLC Trip Records]
-    B[Extract]
-    C[(Raw Layer)]
-    D[Transform]
-    E[(Transformed Layer)]
-    F[Load to Data Mart]
-    G[(Data Mart)]
-    H[Data Validation]
-    I[Data Quality Report]
+### Docker Compose Container
 
-    A --> B
-    B --> C
-    C --> D
-    D --> E
-    E --> F
-    F --> G
-    G --> H
-    H --> I
-```
+![Docker Compose Up](./images/docker-compose-up.png)
 
-## **Technology Stack**
-- **Python 3.13+**
-- **Docker**
+This shows Docker running the NYC Taxi ETL pipeline containers.
+
+---
+
+## Architecture Overview
 
 ```mermaid
 flowchart TD
-    Python[Python 3.13]
+    A[NYC Taxi Data Source]
 
-    Python --> Pandas[Pandas]
-    Python --> PyArrow[PyArrow]
-    Python --> Docker[Docker]
+    B[Extract]
+    C[(Raw Layer)]
 
-    Pandas --> ETL[NYC Taxi ETL Pipeline]
-    PyArrow --> ETL
-    Docker --> ETL
+    D[Transform]
+    E[(Transformed Layer)]
 
-    ETL --> Git[Git]
-    Git --> GitHub[GitHub]
+    F[Load]
+    G[(Data Mart)]
+
+    H[Data Quality Check]
+    I[Valid & Invalid Data]
+
+    J[Data Quality Report]
+
+    A --> B --> C --> D --> E --> F --> G --> H
+    H --> I
+    H --> J
 ```
+
+## **Technology Stack**
+- **Python 3.13+** - Core programming language
+- **Pandas** - Data manipulation and transformation
+- **PyArrow** - Parquet file processing
+- **Requests** - Data extraction from external sources
+- **Docker** - Containerization and environment consistency
+
 
 ## **Project Structure**
 ```plaintext
 nyc_taxi-etl_pipeline/
-├── config/
-├── pipeline/
-├── utils/
-├── data/
-│   ├── raw/
-│   ├── transformed/
-│   ├── mart_cleaned/
-│   ├── mart/
-│   └── reports/
-├── scripts/
-├── images/
-├── logs/
-├── main.py
-├── Dockerfile
-├── docker-compose.yml
-├── requirements.txt
+├── config/                 # Configuration & settings logging
+├── pipeline/               # ETL core logic (extract, transform, load, validate, reporting)
+├── utils/                  # Helper functions
+├── data/                   
+│   ├── raw/                # Raw extracted data
+│   ├── transformed/        # Cleaned & transformed data
+│   ├── mart_cleaned/       # Validated final dataset
+│   ├── mart/               # Data mart (analytics-ready)
+│   └── reports/            # Data quality reports
+├── scripts/                # Automation scripts (entry point)
+├── images/                 # Documentation assets
+├── logs/                   # Pipeline logs
+├── main.py                 # Python orchestration entry point
+├── Dockerfile              # Container definition
+├── docker-compose.yml      # Multi-container setup
+├── requirements.txt        # Dependencies
 └── README.md
 ```
+## Pipeline Flow
+The pipeline runs in the following order:
 
-## **Installation & Usage**
-## Installation
+**1. Extract**
+- Download NYC Taxi dataset from external source
+- Store into data/raw/
+
+**2. Transform**
+- Standardize schema
+- Feature formatting
+- Feature engineering
+- Store into data/transformed/
+
+**3. Load**
+- Load transformed data into data/mart/
+
+**4. Data Quality Check**
+- Missing values detection
+- Duplicate detection
+- Data type validation
+- Business rule validation
+
+**5. Validation Output**
+- Valid records → mart_cleaned/
+- Invalid records → separated for inspection
+
+**6. Report Generation**
+- Summary statistics
+- Data quality metrics
+- Validation results
+
+## **Installation & Setup**
 
 Clone the repository:
 
@@ -97,59 +121,31 @@ pip install -r requirements.txt
 
 ## Running the Pipeline
 
-Run the ETL pipeline locally:
+Run the ETL pipeline using the automation script:
 
 ```bash
-python main.py
+./scripts/entry_point.sh
 ```
 
 ## Running with Docker
 
-Build and start the container:
+Build and run the pipeline inside a Docker container:
 
 ```bash
 docker compose up --build
 ```
 
-Run in detached mode:
+## Data Layer Explanation
+- Raw Layer → Original untouched dataset
+- Transformed Layer → Cleaned and standardized data
+- Data Mart → Analytics-ready dataset
+- Mart Cleaned → Fully validated dataset
+- Reports → Data quality summary and metrics
 
-```bash
-docker compose up -d --build
-```
-
-## Output
-
-After the pipeline is executed successfully, the following outputs are generated:
-
-```plaintext
-data/
-├── transformed/
-│   └── taxi_transformed.parquet
-├── mart_cleaned/
-│   ├── valid_data.csv
-│   └── invalid_data.csv
-├── mart/
-│   └── taxi_mart.csv
-└── reports/
-    └── data_quality_report.txt
-```
-
-## Data Quality Validation
-
-The pipeline performs several validation checks:
-
-- Missing value detection
-- Duplicate record detection
-- Data type validation
-- Business rule validation
-- Valid and invalid record separation
-
-A detailed quality report is generated automatically after each pipeline execution.
 
 ## Future Improvements
 
-- Add unit testing
+- Add unit testing(pytest)
 - Integrate PostgreSQL as a data warehouse
 - Implement other technologies
 - Add dashboard visualization
-- Deploy the pipeline to a cloud environment

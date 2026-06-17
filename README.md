@@ -1,5 +1,7 @@
 # NYC Taxi Data Pipeline Project
+The NYC Taxi Pipeline Engineering Project is an end-to-end data engineering pipeline designed to process NYC taxi trip data into analytics-ready datasets.
 
+The project implements a complete ETL workflow including data ingestion, transformation, business rule-based validation, and data quality reporting. It demonstrates modular pipeline design with feature engineering, data quality checks, and structured data storage across multiple layers (raw, transformed, and data mart).
 
 ## Screenshots
 

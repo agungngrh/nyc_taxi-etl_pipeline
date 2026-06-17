@@ -1,7 +1,7 @@
 # NYC Taxi Data Pipeline Project
-The NYC Taxi Pipeline Engineering Project is an end-to-end data engineering pipeline designed to process NYC taxi trip data into analytics-ready datasets.
+The NYC Taxi Data Pipeline Project is an end-to-end data engineering pipeline that integrates multiple data sources to produce analytics-ready datasets.
 
-The project implements a complete ETL workflow including data ingestion, transformation, business rule-based validation, and data quality reporting. It demonstrates modular pipeline design with feature engineering, data quality checks, and structured data storage across multiple layers (raw, transformed, and data mart).
+The pipeline extracts NYC taxi trip data and taxi zone lookup data from external sources, then performs data transformation, enrichment through dimensional joins, business rule validation, and automated data quality reporting. The final output is structured into layered datasets (raw, transformed, and data mart) suitable for analytical use cases.
 
 ## Screenshots
 
@@ -49,7 +49,7 @@ flowchart TD
 ```plaintext
 nyc_taxi-etl_pipeline/
 ├── config/                 # Configuration & settings logging
-├── pipeline/               # ETL core logic (extract, transform, load, validate, reporting)
+├── src/                    # ETL core logic (extract, transform, load, validate, reporting)
 ├── utils/                  # Helper functions
 ├── data/                   
 │   ├── raw/                # Raw extracted data

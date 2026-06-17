@@ -1,12 +1,12 @@
 from config.config import Config
 from config.logger import setup_logging, get_logger
 
-from pipeline.extract import Extractor
-from pipeline.transform import Transformer
-from pipeline.load import Loader
+from src.extract import Extractor
+from src.transform import Transformer
+from src.load import Loader
 
-from utils.data_validate import DataValidator
-from utils.data_reports import DataQualityReport
+from src.data_validate import DataValidator
+from src.data_reports import DataQualityReport
 
 setup_logging()
 logger = get_logger(__name__)

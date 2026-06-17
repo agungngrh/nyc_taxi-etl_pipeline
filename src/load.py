@@ -26,7 +26,6 @@ class Loader:
         try:
             df = read_parquet_file(self.config.TRANSFORMED_FILE)
             save_to_csv(file_path=self.config.MART_FILE, df=df)
-
             logger.info('Proses load data selesai')
 
         except FileNotFoundError as err:

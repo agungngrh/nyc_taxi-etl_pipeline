@@ -1,14 +1,9 @@
 import os
 import pandas as pd
-
 from typing import TextIO
 from config.config import Config
 from config.logger import get_logger
-from utils.helpers import (
-    create_directory,
-    read_csv_file,
-    read_parquet_file,
-)
+from utils.helpers import create_directory, read_csv_file, read_parquet_file
 
 logger = get_logger(__name__)
 
@@ -87,10 +82,7 @@ class DataQualityReport:
 
             create_directory(self.config.REPORTS_DIR)
 
-            report_file = os.path.join(
-                self.config.REPORTS_DIR,
-                'data_quality_report.txt'
-            )
+            report_file = os.path.join(self.config.REPORTS_DIR,'data_quality_report.txt')
 
             with open(report_file, 'w', encoding='utf-8') as f:
                 self._write_summary(f, df, valid_df, invalid_df)
@@ -107,7 +99,6 @@ class DataQualityReport:
         except FileNotFoundError as err:
             logger.error(f'File sumber tidak ditemukan: {err}')
             raise
-
         except Exception as err:
             logger.error(f'Gagal membuat report: {err}')
             raise

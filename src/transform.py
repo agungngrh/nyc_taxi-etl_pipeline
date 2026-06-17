@@ -1,29 +1,25 @@
-import os
 import re
 import pandas as pd
 from config.config import Config
 from config.logger import get_logger
-from utils.helpers import (
-    read_parquet_file,
-    save_to_parquet,
-)
+from utils.helpers import read_csv_file, read_parquet_file, save_to_parquet
 
 logger = get_logger(__name__)
 
 
 PAYMENT_MAPPING = {
-    0: "Unknown",
-    1: "Credit Card",
-    2: "Cash",
-    3: "No Charge",
-    4: "Dispute",
-    5: "Unknown",
-    6: "Voided Trip",
+    0: 'Unknown',
+    1: 'Credit Card',
+    2: 'Cash',
+    3: 'No Charge',
+    4: 'Dispute',
+    5: 'Unknown',
+    6: 'Voided Trip',
 }
 
 FLAG_MAP = {
-    "Y": "Store and Forward",
-    "N": "Normal",
+    'Y': 'Store and Forward',
+    'N': 'Normal',
 }
 
 
@@ -124,13 +120,12 @@ class Transformer:
 
         try:
             df = read_parquet_file(self.config.TAXI_FILE)
-            zone_df = pd.read_csv(self.config.ZONE_FILE)
+            zone_df = read_csv_file(self.config.ZONE_FILE)
 
             df = self._rename_column(df)
             df = self._feature_engineering(df)
             df = self._mapping_location(df, zone_df)
 
-            os.makedirs(os.path.dirname(self.config.TRANSFORMED_FILE), exist_ok=True)
             save_to_parquet(file_path=self.config.TRANSFORMED_FILE, df=df)
 
             logger.info(f'Data hasil transformasi disimpan di: {self.config.TRANSFORMED_FILE}')

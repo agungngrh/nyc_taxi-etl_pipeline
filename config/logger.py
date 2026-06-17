@@ -1,7 +1,5 @@
 import logging
 import os
-
-from datetime import datetime
 from config.config import Config
 
 _is_configured = False
@@ -10,6 +8,9 @@ def setup_logging() -> None:
     '''
     Konfigurasi logging utama
     '''
+    if logging.getLogger().hasHandlers():
+        return
+    
     global _is_configured
     if _is_configured:
         return

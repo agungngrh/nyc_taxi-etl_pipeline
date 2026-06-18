@@ -16,7 +16,8 @@ class Extractor:
 
     def _download_file(self, url: str, file_path: str, timeout: int=10, chunk_size: int=1024 * 1024 * 8) -> None:
         """
-        Download file data URL dan menyimpanya ke local storage
+        Mengunduh file dari URL dan menyimpannya ke file lokal menggunakan
+        streaming dan chunk untuk menangani file berukuran besar secara efisien.
         """
         if os.path.exists(file_path):
             logger.info(

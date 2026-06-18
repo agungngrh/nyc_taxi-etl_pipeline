@@ -47,6 +47,9 @@ class Transformer:
         return df
     
     def _add_trip_duration(self, df: pd.DataFrame) -> pd.DataFrame:
+        df['tpep_pickup_datetime'] = pd.to_datetime(df['tpep_pickup_datetime'], errors='coerce')
+        df['tpep_dropoff_datetime'] = pd.to_datetime(df['tpep_dropoff_datetime'], errors='coerce')
+
         df['trip_duration_minutes'] = (
             df['tpep_dropoff_datetime'] - df['tpep_pickup_datetime']
         ).dt.total_seconds() / 60
@@ -70,8 +73,8 @@ class Transformer:
         return df
     
     def _mapping_categorical(self, df: pd.DataFrame) -> pd.DataFrame:
-        df['payment_type'] = df['payment_type'].map(PAYMENT_MAPPING)
-        df['store_and_fwd_flag'] = df['store_and_fwd_flag'].map(FLAG_MAP)
+        df['payment_type'] = df['payment_type'].map(PAYMENT_MAPPING).fillna('Unknown')
+        df['store_and_fwd_flag'] = df['store_and_fwd_flag'].map(FLAG_MAP).fillna('Unknown')
         return df
     
     def _feature_engineering(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -100,7 +103,10 @@ class Transformer:
                 'zone': f'{prefix}_zone'
             }
         )
-        return mapped_df.drop(columns='locationid')
+        if 'locationid' in mapped_df.columns:
+            mapped_df = mapped_df.drop(columns='locationid')
+
+        return mapped_df
     
     def _mapping_location(self, df: pd.DataFrame, zone_df: pd.DataFrame) -> pd.DataFrame:
         """

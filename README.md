@@ -38,10 +38,10 @@ flowchart TD
 ```
 
 ## **Technology Stack**
-- **Python 3.13+** - Core programming language
+- **Python 3.13+** - Programming language
 - **Pandas** - Data manipulation and transformation
 - **PyArrow** - Parquet file processing
-- **Requests** - Data extraction from external sources
+- **Requests** - HTTP requests
 - **Docker** - Containerization and environment consistency
 
 
@@ -70,7 +70,7 @@ nyc_taxi-etl_pipeline/
 The pipeline runs in the following order:
 
 **1. Extract**
-- Download NYC Taxi dataset from external source
+- Download NYC Taxi and Taxi Zone Lookup dataset from external source
 - Store into data/raw/
 
 **2. Transform**
@@ -121,13 +121,6 @@ Install project dependencies:
 pip install -r requirements.txt
 ```
 
-## Running the Pipeline
-
-Run the ETL pipeline using the automation script:
-
-```bash
-./scripts/entry_point.sh
-```
 
 ## Running with Docker
 

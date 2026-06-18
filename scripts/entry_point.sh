@@ -23,7 +23,7 @@ log_message() {
 }
 
 # pipeline
-# Aktifkan virtual environment jika tersedia
+# Aktifkan virtual environment
 if [ -d ".venv" ]; then
     source .venv/bin/activate
 elif [ -d "env" ]; then

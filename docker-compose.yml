@@ -1,6 +1,7 @@
 services:
   pipeline:
     container_name: nyc_taxi_pipeline
+    image: nyc_taxi_pipeline
 
     build:
       context: .

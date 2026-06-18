@@ -15,4 +15,4 @@ COPY . .
 RUN chmod +x scripts/entry_point.sh
 
 # entry point program
-CMD ["./scripts/entry_point.sh"]
+CMD ["bash","./scripts/entry_point.sh"]

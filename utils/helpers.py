@@ -1,5 +1,10 @@
 import os
 import pandas as pd
+import time
+from typing import Callable
+from config.logger import get_logger
+
+logger = get_logger(__name__)
 
 def ensure_file_exists(file_path: str) -> None:
     """
@@ -52,3 +57,14 @@ def save_to_parquet(file_path: str, df: pd.DataFrame) -> None:
     ensure_parent_directory(file_path)
     df.to_parquet(file_path, index=False)
     
+def run_stage(stage_name: str, func: Callable) -> None:
+    """
+    Menjalankan sebuah stage pipeline dan mencatat waktu eksekusinya
+    """
+    start_time = time.time()
+    func()
+    duration = time.time() - start_time
+
+    logger.info(
+        f'Stage {stage_name} selesai dalam {duration:.2f} detik'
+    )

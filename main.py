@@ -7,14 +7,14 @@ from src.load import Loader
 
 from src.data_validate import DataValidator
 from src.data_reports import DataQualityReport
+from utils.helpers import run_stage
 
 setup_logging()
 logger = get_logger(__name__)
 
-
 def main() -> None:
     """
-    Entry point program untuk menjalankan pipeline ETL.
+    Orchestrator program untuk menjalankan pipeline ETL.
     """
     try:
         config = Config()
@@ -25,13 +25,11 @@ def main() -> None:
         loader = Loader(config)
         report_data = DataQualityReport(config)
 
-        extractor.extract()
-        transformer.transform()
-        loader.load_to_data_mart()
-        validator.validate()
-        report_data.generate_report()
-
-        logger.info('Pipeline selesai')
+        run_stage(stage_name='Extract', func=extractor.extract)
+        run_stage(stage_name='Transform', func=transformer.transform)
+        run_stage(stage_name='Load', func=loader.load_to_data_mart)
+        run_stage(stage_name='Validator', func=validator.validate)
+        run_stage(stage_name='Reporting', func=report_data.generate_report)
 
     except Exception as err:
         logger.error(f'Pipeline gagal dijalankan: {err}')
